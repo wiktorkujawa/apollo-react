@@ -1,24 +1,7 @@
 import React from 'react'
-import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import { Link } from 'react-router-dom';
-import classNames from 'classnames';
-
-const LAUNCH_QUERY = gql`
-  query LaunchQuery($flight_number: Int!) {
-    launch(flight_number: $flight_number) {
-      flight_number
-      mission_name
-      launch_year
-      launch_success
-      launch_date_local,
-      rocket {
-        rocket_id
-        rocket_name
-        rocket_type
-      }
-    }
-  }`;
+import { LAUNCH_QUERY } from '../../schemas/Launch';
 
 const Launch = ({ match: { params } }) => {
   let { flight_number } = params;
@@ -54,10 +37,7 @@ const Launch = ({ match: { params } }) => {
         </li>
         <li className="list-group-item">
           Launch Successfull: {' '}
-          <span className={classNames({
-            'text-success': launch_success,
-            'text-danger': !launch_success
-          })}>{launch_success ? 'Yes' : 'No'}</span>
+          <span className={launch_success ? 'text-success' : 'text-danger'}>{launch_success ? 'Yes' : 'No'}</span>
         </li>
       </ul>
       <h4 className="my-3">Rocket Details</h4>
@@ -67,7 +47,7 @@ const Launch = ({ match: { params } }) => {
         <li className="list-group-item">Rocket Type: {rocket_type}</li>
       </ul>
       <hr />
-      <Link to="/" className="btn btn-secondary">Back</Link>
+      <Link to="/launches" className="btn btn-secondary">Back</Link>
     </div>
   )
 }

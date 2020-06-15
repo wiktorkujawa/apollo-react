@@ -1,0 +1,71 @@
+/// Mixin to prefix several properties at once
+/// @author Hugo Giraudel
+/// @param {Map} $declarations - Declarations to prefix
+/// @param {List} $prefixes (()) - List of prefixes to print
+@mixin prefix($declarations, $prefixes: ()) {
+  @each $property, $value in $declarations {
+    @each $prefix in $prefixes {
+      #{'-' + $prefix + '-' + $property}: $value;
+    }
+
+    // Output standard non-prefixed declaration
+    #{$property}: $value;
+  }
+}
+
+
+// keyframes mixin
+// author: https://gist.github.com/mirisuzanne/1607696
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content; 
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @-o-keyframes #{$name} {
+    @content;
+  } 
+  @keyframes #{$name} {
+    @content;
+  } 
+}
+
+.fadein-elements {
+  @include prefix((
+    animation: fadein 2s
+  ), webkit ms moz o);
+ }
+
+ @include keyframes(fadein) {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.delete-btn{
+  position: absolute; 
+  right:0;
+  top:0;
+}
+
+.my-center-modal{
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.social-card {
+  color: #eeeeee;
+  position: fixed;
+  right: 0;
+  padding-right: 0.5rem;
+  top: 50%;
+  z-index: 2000;
+}

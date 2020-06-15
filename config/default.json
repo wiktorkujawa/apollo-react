@@ -1,0 +1,8 @@
+{
+  "mongoURI": "mongodb+srv://wiktor:limaczek231407@wiktor-g12on.mongodb.net/apollo?retryWrites=true&w=majority",
+  "jwtSecret": "sl_myJwtSecret",
+  "REFRESH_TOKEN_SECRET": "asdkljlaksjdfklajsdl",
+  "ACCESS_TOKEN_SECRET": "askldfsjflasd",
+  "email": "postmaster@travel-testing.com",
+  "password": "cee12e2e593bfa6fda32c4c38fe8a051-ee13fadb-a5fd3486"
+}

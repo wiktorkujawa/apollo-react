@@ -1,23 +1,18 @@
 import React from 'react'
 import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 import LaunchItem from './LaunchItem';
 import MissionKey from './MissionKey';
-
-const LAUNCHES_QUERY = gql`
-  query LaunchesQuery {
-    launches {
-      flight_number
-      mission_name
-      launch_date_local
-      launch_success
-    }
-  }
-`;
-
+import AddLaunch from './AddLaunch';
+import { LAUNCHES_QUERY } from '../../schemas/Launch';
 
 const Launches = () => {
-  const { loading, error, data } = useQuery(LAUNCHES_QUERY);
+  const { 
+    loading,
+    error, 
+    data,
+    refetch: refetchLaunches 
+  } = useQuery(LAUNCHES_QUERY);
+
   if (loading) return <p>Loading...</p>;
 
   if (error) {
@@ -31,10 +26,10 @@ const Launches = () => {
       <MissionKey />
       {
         data.launches.map(launch => (
-          <LaunchItem key={launch.flight_number} launch={launch} />
+          <LaunchItem key={launch.flight_number} launch={launch} refetchLaunches={refetchLaunches} />
         ))
       }
-
+      <AddLaunch refetchLaunches={refetchLaunches}/>
     </>
   )
 }
